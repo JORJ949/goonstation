@@ -56,7 +56,7 @@
 						maptext_out = "<i>[pre_message]</i>"
 						m_type = 1
 					else if (!muzzled)
-						message = "<B>[src]</B> [istype(src.w_uniform, /obj/item/clothing/under/gimmick/frog) ? "croaks" : "screams"]!"
+						message = "<B>[src]</B> [istype(src.w_uniform, /obj/item/clothing/under/gimmick/frog) ? "croaks" : isskeleton(src) ? "shrieks" : "screams"]!"
 						m_type = 2
 						if (src.sound_list_scream && length(src.sound_list_scream))
 							playsound(src.loc, pick(src.sound_list_scream), 80, 0, 0, src.get_age_pitch(), channel=VOLUME_CHANNEL_EMOTE)
@@ -68,6 +68,10 @@
 						#ifdef HALLOWEEN
 						spooktober_GH.change_points(src.ckey, 30)
 						#endif
+						if(isskeleton(src))
+							for (var/mob/living/carbon/C in view(5,get_turf(src)))
+								if (!isskeleton(C) && prob(20) && !ON_COOLDOWN(C, "spooky_shriek_shudder", 5 SECONDS))
+									C.emote("shakes and shudders in surprise")
 						var/possumMax = 15
 						for_by_tcl(responsePossum, /obj/critter/opossum)
 							if (!responsePossum.alive)
@@ -775,6 +779,11 @@
 				// basic visible single-word emotes
 				message = "<B>[src]</B> [act]s."
 				maptext_out = "<I>[act]s</I>"
+				m_type = 1
+
+			if ("shakes and shudders in surprise")
+				message = "<B>[src]</B> [act]."
+				maptext_out = "<I>[act]</I>"
 				m_type = 1
 
 			if (":)")
