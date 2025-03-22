@@ -52,6 +52,7 @@
 				"icon"=p_source.parallax_icon,
 				"icon_state"=p_source.parallax_icon_state,
 				"value"=p_source.parallax_value,
+				"tessellate"=p_source.tessellate,
 				"scroll_speed"=p_source.scroll_speed,
 				"scroll_angle"=p_source.scroll_angle,
 				"x"=p_source.initial_x_coordinate,
@@ -70,6 +71,7 @@
 				"icon"=p_source.parallax_icon,
 				"icon_state"=p_source.parallax_icon_state,
 				"value"=p_source.parallax_value,
+				"tessellate"=p_source.tessellate,
 				"scroll_speed"=p_source.scroll_speed,
 				"scroll_angle"=p_source.scroll_angle,
 				"x"=p_source.initial_x_coordinate,
@@ -97,6 +99,8 @@
 	// 			)
 
 /datum/parallax_viewer/ui_act(action, list/params, datum/tgui/ui)
+	var/width
+	var/height
 	. = ..()
 	if(.)
 		return
@@ -123,7 +127,7 @@
 			source_group?.restore_parallax_render_sources_to_default()
 
 		if("add")
-			var/type = tgui_input_list(ui.user, "Add Parallax Type to [params["group"]]", "Add Parallax", concrete_typesof(/atom/movable/screen/parallax_render_source/))
+			var/type = tgui_input_list(ui.user, "Add Parallax Type to [params["group"]]", "Add Parallax", concrete_typesof(/atom/movable/screen/parallax_render_source/)-/atom/movable/screen/parallax_render_source/, default=/atom/movable/screen/parallax_render_source/planet/gimmick1)
 			source_group?.add_parallax_render_source(type, 10 SECONDS)
 
 		if("canned")
@@ -144,8 +148,8 @@
 					render_source.parallax_icon_state = ""
 				new_icon = icon(render_source.parallax_icon, render_source.parallax_icon_state)
 				if(new_icon)
-					var/width = new_icon.Width()
-					var/height = new_icon.Height()
+					width = new_icon.Width()
+					height = new_icon.Height()
 					if(width && height)
 						render_source.icon_width = width
 						render_source.icon_height = height
@@ -164,8 +168,8 @@
 					render_source.parallax_icon_state = params["value"]
 					new_icon = icon(render_source.parallax_icon, render_source.parallax_icon_state)
 					if(new_icon)
-						var/width = new_icon.Width()
-						var/height = new_icon.Height()
+						width = new_icon.Width()
+						height = new_icon.Height()
 						if(width && height)
 							render_source.icon_width = width
 							render_source.icon_height = height
@@ -192,6 +196,9 @@
 
 				if("initial_y")
 					render_source.initial_y_coordinate = params["value"]
+
+				if("tessellate")
+					render_source.tessellate = params["value"]
 
 				if("static_colour")
 					render_source.static_colour = params["value"]
