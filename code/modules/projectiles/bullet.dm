@@ -466,6 +466,19 @@ toxic - poisons
 	implanted = /obj/item/implant/projectile/bullet_9mm
 	casing = /obj/item/casing/small
 
+/datum/projectile/bullet/ten_mm
+	name = "bullet"
+	shot_sound = 'sound/weapons/lb_execute.ogg'
+	damage = 30
+	hit_ground_chance = 60
+	dissipation_rate = 3
+	dissipation_delay = 8
+	projectile_speed = 48
+	impact_image_state = "bullethole-small"
+	hit_type = DAMAGE_BLUNT
+	implanted = /obj/item/implant/projectile/bullet_10mm
+	casing = /obj/item/casing/small
+
 //medic primary
 /datum/projectile/bullet/veritate
 	name = "bullet"

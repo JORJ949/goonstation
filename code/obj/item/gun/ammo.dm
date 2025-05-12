@@ -647,6 +647,16 @@
 	ammo_type = new/datum/projectile/bullet/nine_mm_soviet
 	ammo_cat = AMMO_PISTOL_9MM_SOVIET
 
+/obj/item/ammo/bullets/ten_mm
+	sname = "10mm"
+	name = "10mm magazine"
+	desc = "Some 10mm lethal bullets"
+	icon_state = "pistol_clip"
+	amount_left = 16
+	max_amount = 16
+	ammo_type = new/datum/projectile/bullet/nine_mm_NATO
+	ammo_cat = AMMO_PISTOL_10MM
+
 //medic primary
 /obj/item/ammo/bullets/veritate
 	sname = "6.5×20mm AP"

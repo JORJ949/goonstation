@@ -1403,6 +1403,9 @@ ABSTRACT_TYPE(/obj/item/implant/revenge)
 			..()
 			implant_overlay = null
 
+	bullet_10mm
+		name = "10mm round"
+		desc = "A relatively rare bullet casing."
 	bullet_308
 		name = "Rifle Round" // this is used by basically every rifle in the game, ignore the "308" path
 		icon_state = "bulletbig"

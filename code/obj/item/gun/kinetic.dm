@@ -952,6 +952,28 @@ ABSTRACT_TYPE(/obj/item/survival_rifle_barrel)
 			projectiles = list(current_projectile)
 			UpdateIcon()
 
+/obj/item/gun/kinetic/clock400
+	name = "\improper Clock 400"
+	desc = "The sequel to the highly popular Clock180."
+	icon_state = "glock_400"
+	item_state = "glock"
+	w_class = W_CLASS_SMALL
+	force = MELEE_DMG_PISTOL
+	rarity = 4
+	ammo_cats = list(AMMO_PISTOL_10MM)
+	max_ammo_capacity = 16
+	auto_eject = 1
+	has_empty_state = 1
+	fire_animation = TRUE
+	default_magazine = /obj/item/ammo/bullets/ten_mm
+	recoil_strength = 0.2
+	icon_recoil_cap = 10
+
+	New()
+		ammo = new default_magazine
+		set_current_projectile(new/datum/projectile/bullet/ten_mm)
+		..()
+
 /obj/item/gun/kinetic/uzi
 	desc = "A stamped metal PDW, produced to respond to Mortian raids. A favorite of armed bodyguards, hired muscle, henchmen, and gangsters."
 	name = "\improper MOR-30"
