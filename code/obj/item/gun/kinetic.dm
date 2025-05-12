@@ -974,6 +974,46 @@ ABSTRACT_TYPE(/obj/item/survival_rifle_barrel)
 		set_current_projectile(new/datum/projectile/bullet/ten_mm)
 		..()
 
+/obj/item/gun/kinetic/clock400/flashlight
+	desc = "The sequel to the highly popular Clock180. This one has a flashlight!"
+	icon_state = "glock_400_flash"
+	var/icon_state_flash_on = "glock_400_flash_on"
+	var/flashlight_on = FALSE
+	var/flashlight_colour = "#00c200"
+
+	var/datum/component/loctargeting/simple_light/light_dir
+	abilities = list(/obj/ability_button/flashlight_hardhat)
+
+	New()
+		..()
+		var/rgb_list = hex_to_rgb_list(src.flashlight_colour)
+		src.light_dir = src.AddComponent(/datum/component/loctargeting/medium_directional_light, rgb_list[1], rgb_list[2], rgb_list[3], 210)
+		if(ismob(src.loc))
+			light_dir.light_target = src.loc
+		src.light_dir.update(FALSE)
+		src.UpdateIcon()
+
+	attack_self(mob/user)
+		src.flashlight_toggle(user, activated_inhand = TRUE)
+		return
+
+	update_icon()
+		if(src.flashlight_on)
+			src.icon_state = src.icon_state_flash_on
+		else
+			src.icon_state = initial(src.icon_state)
+		..()
+
+	proc/flashlight_toggle(var/mob/user, var/force_on = 0, activated_inhand = FALSE)
+		src.flashlight_on = !src.flashlight_on
+		src.light_dir.update(src.flashlight_on)
+		src.UpdateIcon()
+		if (activated_inhand)
+			var/obj/ability_button/flashlight_clock_400/flashlight_button = locate(/obj/ability_button/flashlight_hardhat) in src.ability_buttons
+			if(istype(flashlight_button))
+				flashlight_button.icon_state = src.flashlight_on ? "lighton" : "lightoff"
+		return
+
 /obj/item/gun/kinetic/uzi
 	desc = "A stamped metal PDW, produced to respond to Mortian raids. A favorite of armed bodyguards, hired muscle, henchmen, and gangsters."
 	name = "\improper MOR-30"

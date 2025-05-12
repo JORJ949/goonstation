@@ -408,6 +408,19 @@
 
 ////////////////////////////////////////////////////////////
 
+/obj/ability_button/flashlight_clock_400
+	name = "Toggle Gun Light"
+	icon_state = "lightoff"
+
+	execute_ability()
+		var/obj/item/gun/kinetic/clock400/flashlight/gun = the_item
+
+		gun.flashlight_toggle(the_mob)
+		src.icon_state = gun.flashlight_on ? "lighton" : "lightoff"
+		..()
+
+////////////////////////////////////////////////////////////
+
 /obj/ability_button/tscanner_toggle
 	name = "Toggle T-ray Scanner"
 	icon_state = "tray_off"
